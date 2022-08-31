@@ -68,8 +68,8 @@ class SiderCustom extends Component {
                         <Menu.Item key="0"><Link to="/app">首页</Link></Menu.Item>
                         <SubMenu key="1" title={<Link to="/app/requisition" ><span>查看申请信息</span></Link>}>
                           <Menu.Item key='11' style={{height: "auto" , "white-space": "break-spaces","line-height":"18px"}} ><Link to="/app/requisition" ><span>大船头啊啊啊啊啊啊啊红红火火恍恍惚惚哈哈哈哈</span></Link></Menu.Item>
-                          <Menu.Item key='12'><span>船身</span></Menu.Item>
-                          <Menu.Item key='13'><span>船尾</span></Menu.Item>
+                          <Menu.Item key='12'><Link to="/app/requisition" ><span>船身</span></Link></Menu.Item>
+                          <Menu.Item key='13'><Link to="/app/requisition" ><span>船尾</span></Link></Menu.Item>
                         </SubMenu>
                         <Menu.Item key="2"><Link to="/app/addRequisition" ><span>增加新申请单</span></Link></Menu.Item>
                         <Menu.Item key="3"><Link to="/app/addPictureList" ><span>导入影像图</span></Link></Menu.Item>

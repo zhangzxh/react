@@ -70,6 +70,7 @@ class PictureManage extends Component{
     constructor(props) {
         super(props);
         this.state={
+            
             wheelTimes: 2.5,
             fdDispaly:"none",
             propsPictureId:'',
@@ -92,7 +93,7 @@ class PictureManage extends Component{
             polygonList:{},//获得数据库的多边形List
 
             rectangleList: {},
-            visible: false,
+            imgvisible: false,
             rectangle:{}, //当前鼠标选择的方框属性
             damageType:{"damagetype_id":"0","damagetype_name":"未确定"},
             test: {"FirstName": "xu","LastName":"Xiang"},
@@ -103,7 +104,10 @@ class PictureManage extends Component{
             AIClor:'yellow',
             onClickRectId:'',
             AIDetectLoading:'',
-        }
+            x:1,
+            y:1,
+            
+        }    
     }
 
     componentWillMount() {
@@ -645,10 +649,6 @@ class PictureManage extends Component{
         // <Link to={`/printReport/${this.props.RequisitionList.state.requisition.requisition_id}`}
     };
 
-    rotate=()=>{
-      console.log("待做")  
-    };
-
     saveRect=()=>{
         saveLoginInfo('对编号'+this.state.picture.picture_number+'的损伤标记框进行了保存');
         let svgDOM = document.getElementById('svgG');
@@ -813,7 +813,7 @@ class PictureManage extends Component{
             //此处为单击事件要执行的代码
             this.getRectangleInfo(retangle_id);
             this.setState({
-                visible: true,
+                imgvisible: true,
                 onClickRectId:retangle_id,
             });
             console.log("鼠标单击");
@@ -1230,6 +1230,7 @@ class PictureManage extends Component{
         //     return "#00B109";
     }
 
+
     render() {
 
         console.log(this.state.picture.picture_dir)
@@ -1303,13 +1304,24 @@ class PictureManage extends Component{
             polygList.push({id:polygon_id,points:polygon_pt,author:polygon_author,damage_type:polygon_damage_type,damage_name:polygon_damage_name,textx:topx,texty:topy,belief:polygon_belief})
         }
 
+
+
+
         return (
             <div >
+
+  
             <div className="picManage" >
                 {/*<RectangleManage PictureManage={this}/>
                const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;  */}
                 <div id="raw-view">
-                    <img className="tifImg" src={global.AppConfig.XrayDBIP+this.state.picture.picture_dir}  style={{width:1000,height:300}}  />
+             {/*       <img className="tifImg" src={global.AppConfig.XrayDBIP+this.state.picture.picture_dir}  style={{width:1000,height:300}}  /> */}
+                  <div>
+                       
+                           <img id="myimg" class="tifImg" src={global.AppConfig.XrayDBIP+this.state.picture.picture_dir }  style={{width:1000,height:300}} />
+                           
+                             </div>
+
                     <div id="multi-view" style={{
                         width: "405px",
                         height: "405px",
@@ -1502,9 +1514,20 @@ class PictureManage extends Component{
                     
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     
-                    <Button   onClick={()=>this.rotate()}>上下翻转图片</Button>
+                    <Button  onClick={
+                       ()=>{this.state.x= -1*this.state.x
+                       document.getElementById("myimg").style.transform="scaleX("+this.state.x+") scaleY("+this.state.y+")"}
+                    
+                    }>左右翻转图片</Button>
+                       
+                
+
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Button  onClick={()=>this.rotate()}>左右翻转图片</Button>
+                    <Button  onClick={()=>{
+                       // document.getElementById('myimg').style.transform=(document.getElementById('myimg').style.transform=="scaleX(1) scaleY(1)")?"scaleX(1) scaleY(-1)":"scaleX(1) scaleY(1)"
+                       this.state.y= -1*this.state.y
+                       document.getElementById("myimg").style.transform="scaleX("+this.state.x+") scaleY("+this.state.y+")"
+                    }}>上下翻转图片</Button>
                     
                     <br/><br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;
